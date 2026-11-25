@@ -36,11 +36,12 @@ jobs:
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # This is the default output directory for Vite
           path: ./packages/client/dist
 
       - name: Deploy to GitHub Pages
