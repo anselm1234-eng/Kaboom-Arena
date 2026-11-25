@@ -1,0 +1,211 @@
+@import 'tailwindcss';
+
+/*
+ * PICO-8 palette only:
+ * #000000 #1D2B53 #7E2553 #008751 #AB5236 #5F574F #C2C3C7 #FFF1E8
+ * #FF004D #FFA300 #FFEC27 #00E436 #29ADFF #83769C #FF77A8 #FFCCAA
+ */
+@theme {
+  --color-night: #1d2b53;
+  --color-wine: #7e2553;
+  --color-moss: #008751;
+  --color-rust: #ab5236;
+  --color-ash: #5f574f;
+  --color-silver: #c2c3c7;
+  --color-cream: #fff1e8;
+  --color-cherry: #ff004d;
+  --color-amber: #ffa300;
+  --color-lemon: #ffec27;
+  --color-lime: #00e436;
+  --color-sky: #29adff;
+  --color-haze: #83769c;
+  --color-bubblegum: #ff77a8;
+  --color-peach: #ffccaa;
+  --font-pixel: 'Press Start 2P', monospace;
+}
+
+@layer base {
+  * {
+    image-rendering: pixelated;
+  }
+  html,
+  body {
+    overscroll-behavior: none; /* no pull-to-refresh / scroll chaining */
+  }
+  body {
+    margin: 0;
+    /* dvh tracks the *visible* viewport under mobile browser toolbars
+       (100vh is the toolbar-collapsed maximum and clips the arena). */
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: #000000;
+    color: var(--color-cream);
+    font-family: var(--font-pixel);
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+:root {
+  --sai-t: env(safe-area-inset-top, 0px);
+  --sai-r: env(safe-area-inset-right, 0px);
+  --sai-b: env(safe-area-inset-bottom, 0px);
+  --sai-l: env(safe-area-inset-left, 0px);
+}
+
+/* --- Touch devices (body.touch is set by feature detection at boot) --- */
+body.touch {
+  touch-action: pan-y; /* vertical scroll only: kills pinch + double-tap zoom */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none; /* no long-press callout on iOS */
+  -webkit-tap-highlight-color: transparent;
+}
+body.touch input {
+  user-select: text;
+  -webkit-user-select: text;
+}
+body.touch #screen-game {
+  touch-action: none; /* no browser gestures at all during play */
+  padding: calc(2px + var(--sai-t)) calc(2px + var(--sai-r)) calc(2px + var(--sai-b))
+    calc(2px + var(--sai-l));
+}
+body.touch #screen-game canvas {
+  box-shadow: none;
+}
+body.touch #hud {
+  min-height: 40px;
+  gap: 10px;
+  padding: 4px 8px;
+}
+/* The roster scrolls horizontally (drag/pointer-driven); no scrollbar chrome. */
+#roster {
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+#roster::-webkit-scrollbar {
+  display: none;
+}
+
+/* Demo screenshot mode (?bare=1): canvas pixels only. */
+body.bare #hud,
+body.bare #spectate-note {
+  display: none !important;
+}
+body.bare canvas {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Portrait: the game is landscape-only on touch devices. */
+#rotate-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: var(--color-night);
+  color: var(--color-cream);
+  text-align: center;
+  padding: 24px;
+}
+@media (orientation: portrait) {
+  body.touch #rotate-overlay {
+    display: flex;
+  }
+}
+.rotate-phone {
+  width: 36px;
+  height: 60px;
+  border: 4px solid var(--color-amber);
+  border-radius: 6px;
+  position: relative;
+  animation: rotate-hint 1.8s ease-in-out infinite;
+}
+.rotate-phone::after {
+  content: '';
+  position: absolute;
+  bottom: 3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 3px;
+  background: var(--color-amber);
+}
+@keyframes rotate-hint {
+  0%,
+  15% {
+    transform: rotate(0deg);
+  }
+  55%,
+  100% {
+    transform: rotate(-90deg);
+  }
+}
+
+/* --- Floating virtual controls (DOM is built by the TouchControls class) --- */
+#touch-controls {
+  position: fixed;
+  inset: 0;
+  z-index: 4; /* under the in-game menu (z-index 5) */
+  pointer-events: none;
+}
+#touch-controls.hidden {
+  display: none;
+}
+/* The joystick (nipplejs, dynamic mode) spawns wherever the thumb lands in
+   this zone: the whole left side below the HUD, so players never miss it
+   while watching the arena. */
+#joy-zone {
+  position: absolute;
+  /* Keep a gutter off the screen edges: a thumb that lands on the very left
+     edge and drags right is exactly the iOS/Android system back-swipe, which
+     touch-action:none can't suppress - it would yank the joystick out from
+     under the player. The bottom gutter likewise dodges the home-indicator
+     swipe-up when moving "down". */
+  left: calc(20px + var(--sai-l));
+  right: 45%;
+  top: calc(56px + var(--sai-t));
+  bottom: calc(16px + var(--sai-b));
+  pointer-events: auto;
+  touch-action: none;
+}
+/* nipplejs renders inline styles; only the rims are ours. */
+#joy-zone .back {
+  border: 2px solid rgba(255, 241, 232, 0.35);
+  box-sizing: border-box;
+}
+#joy-zone .front {
+  border: 2px solid rgba(255, 241, 232, 0.7);
+  box-sizing: border-box;
+}
+#btn-bomb {
+  position: absolute;
+  right: calc(24px + var(--sai-r));
+  bottom: calc(26px + var(--sai-b));
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: rgba(255, 0, 77, 0.4);
+  border: 2px solid rgba(255, 241, 232, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  touch-action: none;
+  will-change: transform;
+}
+#btn-bomb img {
+  width: 40px;
+  height: 40px;
+  pointer-events: none;
+}
+#btn-bomb.active {
+  transform: scale(0.88);
+  background: rgba(255, 0, 77, 0.75);
+}

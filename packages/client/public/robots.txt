@@ -1,0 +1,7 @@
+# Blastmates — https://blastmates.app
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /manage
+
+Sitemap: https://blastmates.app/sitemap.xml

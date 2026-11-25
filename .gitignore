@@ -1,0 +1,14 @@
+node_modules/
+dist/
+*.log
+.DS_Store
+.idea/
+data/
+.env
+.env.*
+!.env.example
+
+# Local Claude Code worktrees and scratch state
+.claude/
+# Empty/accidental local SQLite artifact
+identifier.sqlite

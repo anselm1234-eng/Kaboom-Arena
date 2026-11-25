@@ -1,0 +1,32 @@
+{
+  "name": "@kaboom-arena/server",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/server.ts",
+    "db:generate": "drizzle-kit generate",
+    "build": "tsc --noEmit && esbuild src/server.ts --bundle --platform=node --target=node20 --format=cjs --external:better-sqlite3 --external:sharp --outfile=dist/server.cjs",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@kaboom-arena/shared": "workspace:*",
+    "better-sqlite3": "^12.10.0",
+    "dotenv-flow": "^4.1.0",
+    "drizzle-orm": "^0.45.2",
+    "sharp": "^0.34.5",
+    "ws": "^8.18.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.13",
+    "@types/node": "^22.13.1",
+    "@types/ws": "^8.5.14",
+    "drizzle-kit": "^0.31.10",
+    "esbuild": "^0.25.0",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

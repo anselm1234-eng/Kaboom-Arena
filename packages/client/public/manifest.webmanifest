@@ -1,0 +1,14 @@
+{
+  "name": "Blastmates — multiplayer bomb arena",
+  "short_name": "Blastmates",
+  "description": "Free multiplayer bomb arena in your browser. Play instantly with friends — no download, no account.",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "landscape",
+  "background_color": "#1B2440",
+  "theme_color": "#1B2440",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

@@ -1,0 +1,10 @@
+node_modules
+**/node_modules
+**/dist
+*.log
+# Keep .git out of the context except the few files the client build reads
+# to stamp the commit hash into the UI (see packages/client/vite.config.ts).
+.git
+!.git/HEAD
+!.git/refs
+!.git/packed-refs
