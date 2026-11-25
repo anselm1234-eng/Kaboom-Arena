@@ -37,7 +37,7 @@ const rootPkg = JSON.parse(readFileSync(resolve(REPO_ROOT, 'package.json'), 'utf
 
 export default defineConfig({
   // 🚨 CHANGE 1: Tell Vite your app will live in a subfolder on GitHub Pages
-  base: '/kaboom-arena/', 
+  base: '/Kaboom-Arena/', 
   
   plugins: [react(), tailwindcss()],
   define: {
