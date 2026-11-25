@@ -38,7 +38,7 @@ function RotateOverlay() {
       <h2 className="m-0 text-[14px] text-amber [text-shadow:2px_2px_0_#000000]">
         ROTATE YOUR PHONE
       </h2>
-      <div className="text-[8px] leading-[1.8] text-silver">KABOOM ARENA PLAYS IN LANDSCAPE</div>
+      <div className="text-[8px] leading-[1.8] text-silver">kaboom-arena PLAYS IN LANDSCAPE</div>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 {
-  "name": "@kaboom-arena/client",
+  "name": "@blastmates/client",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@kaboom-arena/shared": "workspace:*",
+    "@blastmates/shared": "workspace:*",
     "motion": "^12.40.0",
     "nipplejs": "^1.0.4",
     "react": "^19.2.7",

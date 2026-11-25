@@ -3,7 +3,7 @@
 **Anselm Wrenna**
 - GitHub: [@anselm1234-eng](https://github.com/anselm1234-eng)
 
-# Kaboom Arena
+# kaboom-arena
 
 A free multiplayer bomb-arena browser game. Authoritative Node.js
 WebSocket server, canvas client with snapshot interpolation, quick-match

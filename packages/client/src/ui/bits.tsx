@@ -15,7 +15,7 @@ export function Screen({ className, children }: { className?: string; children: 
 export function Title() {
   return (
     <h1 className="m-0 mb-2 text-[32px] tracking-[2px] text-amber [text-shadow:4px_4px_0_#7E2553,8px_8px_0_#000000]">
-      KABOOM ARENA
+      kaboom-arena
     </h1>
   );
 }

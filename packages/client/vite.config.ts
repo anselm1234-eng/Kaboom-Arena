@@ -36,6 +36,9 @@ const rootPkg = JSON.parse(readFileSync(resolve(REPO_ROOT, 'package.json'), 'utf
 };
 
 export default defineConfig({
+  // 🚨 CHANGE 1: Tell Vite your app will live in a subfolder on GitHub Pages
+  base: '/kaboom-arena/', 
+  
   plugins: [react(), tailwindcss()],
   define: {
     __APP_VERSION__: JSON.stringify(rootPkg.version ?? '0.0.0'),
@@ -52,6 +55,7 @@ export default defineConfig({
       '/uploads': { target: 'http://localhost:8080', changeOrigin: false },
     },
   },
-  optimizeDeps: { exclude: ['@blastmates/shared'] },
+  // 🚨 CHANGE 2: You renamed the package earlier, so this must match!
+  optimizeDeps: { exclude: ['@kaboom-arena/shared'] }, 
   build: { target: 'es2022' },
 });
